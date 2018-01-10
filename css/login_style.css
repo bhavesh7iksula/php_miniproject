@@ -1,0 +1,24 @@
+.container{
+    background-color: background;
+width: 100%;
+text-align: center;
+ 
+}
+
+.sign{
+	background-color: skyblue;
+margin: 20px;
+padding: 20px; 
+}
+a{
+	text-decoration: none;
+	color: white;
+}
+input[type="submit"]{
+    color: white;
+    margin: 20px;
+    padding: 10px;
+    width: 100px;
+    background-color: gray;
+    border: none;
+}
