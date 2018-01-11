@@ -36,9 +36,11 @@
 
             <?php
             include 'dbcon.php';
-            if (!empty($_SESSION['login_user'])) {
-                $user = $_SESSION['login_user'];
-                $sql = "SELECT * FROM Customer WHERE username ='$user'";
+            $array = array();
+            $user = '';
+            if (!empty($_SESSION['user_id'])) {
+                $userid = $_SESSION['user_id'];
+                $sql = "SELECT * FROM Customer WHERE id ='$userid'";
                 $result = mysqli_query($conn, $sql);
                 $array = mysqli_fetch_array($result);
                 if ($array['role'] == 1) {
@@ -57,37 +59,37 @@
                         <input type="submit" id="search" value="Search Db" >
                         <?php
                     }
-            }
-                    ?>
-                </div><!-- end of .searchDiv -->
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Phone No</th>
-                            <th>Address</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Date</th>
-                            <th>Edit</th>
-                            <th>View</th>
-                            <th>Delete</th>
-                            <?php if ($array['role'] == 1) { ?>
-                                <th>ADMIN ROLE</th>
-                            </tr>
-                        </thead>
-                        <tbody class ='resultDiv'>
-                            <?php
-                            if (mysqli_num_rows($result) > 0) {
-                                $result = mysqli_query($conn, $sql);
+                }
+                ?>
+            </div><!-- end of .searchDiv -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Phone No</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Date</th>
+                        <th>Edit</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                        <?php if ($array['role'] == 1) { ?>
+                            <th>Make admin</th>
+                        </tr>
+                    </thead>
+                    <tbody class ='resultDiv'>
+                        <?php
+                        if (mysqli_num_rows($result) > 0) {
+                            $result = mysqli_query($conn, $sql);
 
-                                $res = '';
-                                while ($row = mysqli_fetch_array($result)) {
+                            $res = '';
+                            while ($row = mysqli_fetch_array($result)) {
 
-                                    $res .= "<tr><td>" . $row['id'] . "</td>
+                                $res .= "<tr><td>" . $row['id'] . "</td>
                                     <td>" . $row['name'] . "</td>
                                     <td>" . $row['email'] . "</td>
                                     <td>" . $row['gender'] . "</td>
@@ -96,45 +98,44 @@
                                     <td>" . $row['city'] . "</td>
                                     <td>" . $row['state'] . "</td>
                                     <td>" . $row['date'] . "</td>
-                                    <td><button class = 'edit'><a href='cust_form.php?id='" . $row['id'] . "'>EDIT</a></button></td>
+                                    <td><button class = 'edit'><a href=cust_form.php?id=" . $row['id'] . ">EDIT</a></button></td>
                                     <td><button class = 'view'><a href=''>VIEW</a></button></td>
-                                    <td><button class = 'delete'><a href='delete.php?id='" . $row['id'] . "'>DELETE</a></button></td>
-                      <td><button class = 'role'><a href='assign_role.php?id='" . $row['id'] . "'>ADMIN ROLE</a></button></td><tr>";
-                                }
-                                if (isset($_POST['keyword'])) {
-                                    echo $res;
-                                }
+                                    <td><button class = 'delete'><a href=delete.php?id=" . $row['id'] . ">DELETE</a></button></td>
+                      <td><button class = 'role'><a href=assign_role.php?id=" . $row['id'] . ">ADMIN ROLE</a></button></td><tr>";
+                            }
+                            if (isset($_POST['keyword'])) {
                                 echo $res;
-                            } else {
-                                echo "0 results for role==1";
+                            }
+                            echo $res;
+                        } else {
+                            echo "0 results for role==1";
+                        }
+                    } else {
+                        $sql = "SELECT * FROM Customer WHERE id ='$userid'";
+
+                        $result = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+
+                            while ($row = mysqli_fetch_array($result)) {
+
+
+                                echo " <tr><td>" . $row['id'] . "</td>",
+                                "<td>" . $row['name'] . "</td>",
+                                "<td>" . $row['email'] . "</td>",
+                                "<td>" . $row['gender'] . "</td>",
+                                "<td>" . $row['phone_no'] . "</td>",
+                                "<td>" . $row['address'] . "</td>",
+                                "<td>" . $row['city'] . "</td>",
+                                "<td>" . $row['state'] . "</td>",
+                                "<td>" . $row['date'] . "</td>",
+                                "<td><button class = 'edit'><a href='cust_form.php?id=" . $row['id'] . "'>EDIT</a></button></td>",
+                                "<td><button class = 'view'><a href=''>VIEW</a></button></td>",
+                                "<td><button class = 'delete'>Dont have permissions</button></td><tr>";
                             }
                         } else {
-                            $sql = "SELECT * FROM Customer WHERE username ='$user'";
-
-                            $result = mysqli_query($conn, $sql);
-                            if (mysqli_num_rows($result) > 0) {
-
-                                while ($row = mysqli_fetch_array($result)) {
-
-
-                                    echo " <tr><td>" . $row['id'] . "</td>",
-                                    "<td>" . $row['name'] . "</td>",
-                                    "<td>" . $row['email'] . "</td>",
-                                    "<td>" . $row['gender'] . "</td>",
-                                    "<td>" . $row['phone_no'] . "</td>",
-                                    "<td>" . $row['address'] . "</td>",
-                                    "<td>" . $row['city'] . "</td>",
-                                    "<td>" . $row['state'] . "</td>",
-                                    "<td>" . $row['date'] . "</td>",
-                                    "<td><button class = 'edit'><a href='cust_form.php?id=" . $row['id'] . "'>EDIT</a></button></td>",
-                                    "<td><button class = 'view'><a href=''>VIEW</a></button></td>",
-                                    "<td><button class = 'delete'>Dont have permissions</button></td><tr>";
-                                }
-                            } else {
-                                echo "0 results for different user";
-                            }
+                            echo "0 results for different user";
                         }
-                    
+                    }
                     ?>
                 </tbody>
             </table>

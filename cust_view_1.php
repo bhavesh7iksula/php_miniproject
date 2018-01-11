@@ -7,7 +7,7 @@ include 'dbcon.php';
 //print_r($_SESSION['login_user']);
 if (!empty($_SESSION['login_user'])) {
     $user = $_SESSION['login_user'];
-    $sql = "SELECT * FROM Customer WHERE username ='$user'";
+    $sql = "SELECT * FROM user11 WHERE username ='$user'";
     $result = mysqli_query($conn, $sql);
     $array = mysqli_fetch_array($result);
     if ($array['role'] == 1) {

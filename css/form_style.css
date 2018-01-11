@@ -1,6 +1,6 @@
 label
 {
-width: 4em;
+width: 7em;
 float: left;
 text-align: right;
 margin-right: 1.5em;
@@ -17,5 +17,5 @@ margin-left: 4.5em;
 }
     p {
     line-height: 30px;
-    background-color: coral
+
 }
