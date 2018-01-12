@@ -31,7 +31,7 @@
         include 'dbcon.php';
 
 
-        if (!empty($_GET['id'])) {
+if (!empty($_GET['id'])) {
             $id = $_GET['id'];
             $sql = "SELECT * from Customer where id=" . $id;
             $query = mysqli_query($conn, $sql);
@@ -144,7 +144,7 @@
                                             values ('$custid','$username','$password');";
                 if (mysqli_query($conn, $sql)) {
                     echo "New record created successfully";
-                    //header("location:login.php");
+                    header("location:login.php");
                 } else {
                     echo "Couldnot insert in user table only customer table entry done.";
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

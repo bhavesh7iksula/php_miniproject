@@ -99,7 +99,7 @@
                                     <td>" . $row['state'] . "</td>
                                     <td>" . $row['date'] . "</td>
                                     <td><button class = 'edit'><a href=cust_form.php?id=" . $row['id'] . ">EDIT</a></button></td>
-                                    <td><button class = 'view'><a href=''>VIEW</a></button></td>
+                                    <td><button class = 'view'><a href=view.php?id=" . $row['id'] . ">VIEW</a></button></td>
                                     <td><button class = 'delete'><a href=delete.php?id=" . $row['id'] . ">DELETE</a></button></td>
                       <td><button class = 'role'><a href=assign_role.php?id=" . $row['id'] . ">ADMIN ROLE</a></button></td><tr>";
                             }
